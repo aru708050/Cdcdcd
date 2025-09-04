@@ -17,14 +17,14 @@
     "ignoreCommand": []
   },
   "adminBot": [
-    "100071288633689", "61561431250805", "61569320200485","100090336901384"],
+    "61560049662458"],
   "whiteListMode": {
     "enable": false,
-    "whiteListIds": ["100071288633689","61567716255506",""],
+    "whiteListIds": ["61560049662458","61567716255506","61566026247773"],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "GAYLIF",
-  "prefix": "/",
+  "nickNameBot": " Ｓｔｅｗｉｅ ",
+  "prefix": ")",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",
@@ -47,7 +47,7 @@
     }
   },
   "dashBoard": {
-    "enable": true,
+    "enable": false,
     "expireVerifyCode": 300000,
     "port": 3001
   },
@@ -76,7 +76,7 @@
     "ignoreEvents": "",
     "notes": "this feature will automatically load the script when scripts have been changed, you can set ignoreCmds to ignore commands, ignoreEvents to ignore events, separate by comma or space, example: \"cmd1.js cmd2.js cmd3.js\" (without backslash)"
   },
-  "autoRefreshFbstate": true,
+  "autoRefreshFbstate": false,
   "autoReloginWhenChangeAccount": false,
   "autoRestartWhenListenMqttError": false,
   "restartListenMqtt": {
@@ -130,7 +130,7 @@
     "updatePresence": true,
     "listenTyping": true,
     "logLevel": "error",
-    "selfListen": true,
+    "selfListen": false,
     "selfListenEvent": true,
     "autoMarkDelivery": false,
     "autoReconnect": true,
