@@ -1,72 +1,45 @@
- const axios = require("axios");
+const axios = require("axios");
 
 module.exports = {
   config: {
     name: "prompt",
     version: "1.0",
-    author: "Nyx",
+    author: "@RI F AT",
     countDown: 5,
     role: 0,
     shortDescription: {
-      en: "Apply style prompt to an image"
+      en: "Generate AI image prompt from image"
     },
     longDescription: {
-      en: "Reply to an image and apply Midjourney-like style prompt"
+      en: "Generate a detailed AI prompt"
     },
-    category: "media",
+    category: "ai",
     guide: {
-      en: "Reply to an image with: prompt <style>"
+      en: "{pn}\nReply to an image with this command."
     }
   },
 
-  onStart: async function ({ api, event, args }) {
+  onStart: async function ({ message, event }) {
+    if (
+      !event.messageReply ||
+      !event.messageReply.attachments?.[0]?.type?.startsWith("photo")
+    ) {
+      return message.reply("Please reply to an image to generate a prompt.");
+    }
+
+    const imgURL = event.messageReply.attachments[0].url;
+    const apiUrl = `https://siiii-api.vercel.app/api/prompt?img=${encodeURIComponent(imgURL)}`;
+
     try {
-      // Check for image reply
-      if (
-        !event.messageReply ||
-        !event.messageReply.attachments ||
-        event.messageReply.attachments.length === 0
-      ) {
-        return api.sendMessage(
-          "❌ Please reply to an image.",
-          event.threadID,
-          event.messageID
-        );
+      const res = await axios.get(apiUrl);
+      if (res.data && res.data.reply) {
+        return message.reply(res.data.reply); 
+      } else {
+        return message.reply("Failed to get a valid prompt from API.");
       }
-
-      const attachment = event.messageReply.attachments[0];
-      if (attachment.type !== "photo") {
-        return api.sendMessage(
-          "❌ Only image replies are supported.",
-          event.threadID,
-          event.messageID
-        );
-      }
-
-      const imageUrl = attachment.url;
-      const style = args.join(" ").trim();
-
-      if (!style) {
-        return api.sendMessage(
-          "❌ Please provide a style.\nExample: prompt dreamy fantasy",
-          event.threadID,
-          event.messageID
-        );
-      }
-
-      // Make API request
-      const apiUrl = `${global.GoatBot.config.nyx}api/prompt?imageUrl=${encodeURIComponent(imageUrl)}&style=${encodeURIComponent(style)}`;
-      const response = await axios.get(apiUrl);
-
-      // Send result
-      return api.sendMessage(response.data.data, event.threadID, event.messageID);
     } catch (err) {
-      console.error("Prompt command error:", err);
-      return api.sendMessage(
-        "❌ An error occurred while processing the prompt.",
-        event.threadID,
-        event.messageID
-      );
+      console.error("Prompt fetch error:", err.message);
+      return message.reply("Failed to generate prompt. Please try again later.");
     }
   }
 };
