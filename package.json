@@ -4,8 +4,7 @@
   "description": "A simple Bot chat messenger using personal account. Made by NTKhang.",
   "main": "index.js",
   "engines": {
-    "node": "16.x",
-    "npm": ">=7.0.0"
+    "node": ">=18"
   },
   "dependencies": {
     "@distube/ytdl-core": "^4.13.3",
@@ -17,7 +16,7 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "eta": "^1.12.3",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-rate-limit": "^6.5.2",
     "express-session": "^1.17.3",
@@ -48,10 +47,11 @@
     "tinyurl": "^1.1.7",
     "totp-generator": "^0.0.13",
     "websocket-stream": "^5.5.2",
-    "archfbchat": "npm:@jsr/samirxpikachu__archfbchat"
+    "ws3-fca": "^1.0.47",
+    "horizon-fca": "latest"
   },
   "scripts": {
-    "start": "set NODE_ENV=&& node index.js",
+    "start": "node index.js",
     "dev": "set NODE_ENV=development&& node index.js",
     "prod": "set NODE_ENV=production&& node index.js"
   },
